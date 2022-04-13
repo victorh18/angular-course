@@ -6,7 +6,9 @@ import { Component } from "@angular/core";
     <div>
         <h1>Upcoming Angular Events</h1>
         <hr />
-        <event-thumbnail [event]="firstEvent"></event-thumbnail>
+        <event-thumbnail #thumbnail [event]="firstEvent" (eventClick)="handleEventClick($event)"></event-thumbnail>
+        <h4>The {{thumbnail.event.name}} is showing next</h4>
+
     </div>
     `
 })
@@ -22,5 +24,9 @@ export class EventsListComponent {
             city: "Punta Cana",
             country: "Dominican Republic"
         }
+    }
+    handleEventClick(data) {
+        console.log(`Welcome to the ${data.name} event!`);
+        
     }
 }
