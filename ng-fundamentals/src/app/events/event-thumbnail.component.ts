@@ -52,7 +52,7 @@ export class EventThumbnailComponent {
         console.log(`The ${this.event.name} course was logged.`); 
     }
 
-    earlyTimeStyle() {
+    earlyTimeStyle() : any {
         let earlyStart = (this.event?.time === '8:00 am')
         return {
             green: earlyStart,
