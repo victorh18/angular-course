@@ -13,7 +13,8 @@ import { EventRouteActivator } from './events/event-details/event-route-activato
 
 import { RouterModule } from '@angular/router';
 import { AppRoutes } from './routes';
-
+import { CreateEventComponent } from './events/create-event.component';
+import { Error404Component } from './errors/404.component';
 
 @NgModule({
   declarations: [
@@ -21,13 +22,28 @@ import { AppRoutes } from './routes';
     EventsListComponent,
     EventThumbnailComponent,
     NavBarComponent,
-    EventDetailsComponent
+    EventDetailsComponent,
+    CreateEventComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(AppRoutes)
   ],
-  providers: [EventService, EventRouteActivator],
+  providers: [
+    EventService, 
+    EventRouteActivator,
+    { provide: "canDeactivateCreateComponent", useValue: checkDirtyState}
+  ],
   bootstrap: [EventsAppComponent]
 })
 export class AppModule { }
+
+export function checkDirtyState(component:CreateEventComponent) {
+  if (component.isDirty) {
+      return window.confirm("Are you sure you want to leave without saving?")
+  }
+
+  return true;
+
+}
