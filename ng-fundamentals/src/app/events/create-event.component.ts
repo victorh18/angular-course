@@ -20,7 +20,7 @@ export class CreateEventComponent {
     /**
      *
      */
-    isDirty:boolean = true;
+    isDirty:boolean = false;
     constructor(private router:Router) {
         
     }
