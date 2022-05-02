@@ -4,13 +4,19 @@ import { IEvent } from "./event.model";
 
 Injectable()
 export class EventService {
+    saveEvent(event: IEvent) {
+        event.id = Math.max(...this.EVENTS.map(e => e.id)) + 1;
+        event.sessions = [];
+        this.EVENTS.push(event);
+    }
+
     getEvents(): Observable<IEvent[]> {
         //return this.EVENTS;
         let subject = new Subject<IEvent[]>();
         setTimeout(() => {
           subject.next(this.EVENTS);
           subject.complete();
-        }, 2000);
+        }, 1000);
         return subject;
     };
 

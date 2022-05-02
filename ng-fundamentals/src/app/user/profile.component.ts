@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
                 return "Must start with a letter"
 
             case control.errors.required:
-                return "Required"
+                return "Tu mama es hombre"
 
             default:
                 return 'default error message'
