@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ISession } from '../shared';
+import { restrictWords } from '../shared/custom-validators';
 
 @Component({
     templateUrl: 'create-session.component.html',
@@ -32,7 +33,7 @@ export class CreateSessionComponent implements OnInit {
         this.presenter = new FormControl('', Validators.required);
         this.duration = new FormControl('', Validators.required);
         this.level = new FormControl('', Validators.required);
-        this.abstract = new FormControl('', [Validators.required, Validators.maxLength(400)]);
+        this.abstract = new FormControl('', [Validators.required, Validators.maxLength(400), restrictWords(['foo', 'bar'])]);
 
         this.newSessionForm = new FormGroup({
             sessionName: this.sessionName,
@@ -60,10 +61,15 @@ export class CreateSessionComponent implements OnInit {
      errorMessage(control: AbstractControl) {
          switch (true) {
              case !!control?.errors?.required:
-                return 'Required'
+                return 'Required';
+
             case !!control?.errors?.maxlength:
-                return 'Cannot exceed 400 characters'
-             default:
+                return 'Cannot exceed 400 characters';
+
+            case !!control?.errors?.restrictWords:
+                return 'Cannot say: ' + control?.errors?.restrictWords;
+
+            default:
          }
      }
 
