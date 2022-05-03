@@ -1,0 +1,45 @@
+<div class="col-md-12">
+  <h3>Create Session</h3>
+</div>
+<div class="col-md-6">
+  <form [formGroup]="newSessionForm" (ngSubmit)="saveSession(newSessionForm.value)" autocomplete="off">
+    <div class="form-group" [ngClass]="{error: showError(sessionName)}">
+      <label for="sessionName">Session Name:</label>
+      <em *ngIf="showError(sessionName)">{{errorMessage(sessionName)}}</em>
+      <input formControlName="sessionName" id="sessionName" type="text" class="form-control" placeholder="session name..." />
+    </div>
+    <div class="form-group" [ngClass]="{error: showError(presenter)}">
+      <label for="presenter">Presenter:</label>
+      <em *ngIf="showError(presenter)">{{errorMessage(presenter)}}</em>
+      <input formControlName="presenter" id="presenter" type="text" class="form-control" placeholder="presenter..." />
+    </div>
+    <div class="form-group" [ngClass]="{error: showError(duration)}">
+      <label for="duration">Duration:</label>
+      <em *ngIf="duration.invalid && duration.touched" [ngClass]="{error: sessionName.invalid && sessionName.touched}">{{errorMessage(duration)}}</em>
+      <select formControlName="duration" class="form-control">
+        <option value="">select duration...</option>
+        <option value="1">Half Hour</option>
+        <option value="2">1 Hour</option>
+        <option value="3">Half Day</option>
+        <option value="4">Full Day</option>
+      </select>
+    </div>
+    <div class="form-group" [ngClass]="{error: showError(level)}">
+      <label for="level">Level:</label>
+      <em *ngIf="level.invalid && level.touched" [ngClass]="{error: sessionName.invalid && sessionName.touched}">{{errorMessage(level)}}</em>
+      <select formControlName="level" class="form-control">
+        <option value="">select level...</option>
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Advanced">Advanced</option>
+      </select>
+    </div>
+    <div class="form-group" [ngClass]="{error: showError(abstract)}">
+      <label for="abstract">Abstract:</label>
+      <em *ngIf="showError(abstract)">{{errorMessage(abstract)}}</em>
+      <textarea formControlName="abstract" id="abstract" rows=3 class="form-control" placeholder="abstract..."></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-default">Cancel</button>
+  </form>
+</div>

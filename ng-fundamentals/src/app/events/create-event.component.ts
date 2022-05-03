@@ -1,6 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { EventService } from "./shared";
+import { EventService, IEvent } from "./shared";
 
 @Component({
     templateUrl: './create-event.component.html',
@@ -13,10 +13,13 @@ import { EventService } from "./shared";
     .error :-ms-input-placeholder { color: #999 }
   `]
 })
-export class CreateEventComponent {
-    newEvent
+export class CreateEventComponent implements OnInit {
+    event: any
     isDirty:boolean = false;
     constructor(private router:Router, private eventService: EventService) {
+        
+    }
+    ngOnInit(): void {
         
     }
 
