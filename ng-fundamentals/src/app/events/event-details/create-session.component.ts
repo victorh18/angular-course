@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { EventEmitter } from '@angular/core';
 import { ISession } from '../shared';
 import { restrictWords } from '../shared/custom-validators';
 
 @Component({
+    selector: 'create-session',
     templateUrl: 'create-session.component.html',
     styles: [`
     em { float: right; color: #E05C65; padding-left: 10px; }
@@ -17,6 +19,7 @@ import { restrictWords } from '../shared/custom-validators';
 
 export class CreateSessionComponent implements OnInit {
     newSessionForm: FormGroup;
+    @Output() saveNewSession = new EventEmitter();
 
     sessionName: FormControl;
     presenter: FormControl;
@@ -46,16 +49,16 @@ export class CreateSessionComponent implements OnInit {
      
      saveSession(data) {
          let session: ISession = {
-             id: undefined,
-             name: data.sessionName,
-             duration: data.duration,
-             level: data.level,
-             presenter: data.presenter,
-             abstract: data.abstract,
-             voters: []
-         }
+            id: undefined,
+            name: data.sessionName,
+            duration: data.duration,
+            level: data.level,
+            presenter: data.presenter,
+            abstract: data.abstract,
+            voters: []
+        }
 
-         console.log(session);         
+        this.saveNewSession.emit(session);        
      }
 
      errorMessage(control: AbstractControl) {

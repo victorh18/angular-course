@@ -4,6 +4,10 @@ import { IEvent } from "./event.model";
 
 Injectable()
 export class EventService {
+    updateEvent(event: IEvent) {
+        let index = this.EVENTS.findIndex(e => e.id === event.id);
+        this.EVENTS[index] = event;
+    }
     saveEvent(event: IEvent) {
         event.id = Math.max(...this.EVENTS.map(e => e.id)) + 1;
         event.sessions = [];
