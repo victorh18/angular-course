@@ -13,6 +13,8 @@ import {
   SessionListComponent
 } from './events/index';
 
+import { CollapsibleWellComponent } from './common/index';
+
 
 import { EventsAppComponent } from './events-app.component';
 
@@ -36,7 +38,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CreateEventComponent,
     Error404Component,
     CreateSessionComponent,
-    SessionListComponent
+    SessionListComponent,
+    CollapsibleWellComponent
   ],
   imports: [
     BrowserModule,

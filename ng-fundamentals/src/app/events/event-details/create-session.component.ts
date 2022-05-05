@@ -18,8 +18,10 @@ import { restrictWords } from '../shared/custom-validators';
 })
 
 export class CreateSessionComponent implements OnInit {
-    newSessionForm: FormGroup;
     @Output() saveNewSession = new EventEmitter();
+    @Output() cancelNewSession = new EventEmitter();
+
+    newSessionForm: FormGroup;
 
     sessionName: FormControl;
     presenter: FormControl;
@@ -77,4 +79,8 @@ export class CreateSessionComponent implements OnInit {
      }
 
      showError = (control: AbstractControl) => (control.invalid && control.touched);
+
+     cancel() {
+         this.cancelNewSession.emit();
+     }
 }
