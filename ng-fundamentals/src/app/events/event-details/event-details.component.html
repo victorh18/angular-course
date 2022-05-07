@@ -9,7 +9,7 @@
   
     <div class="row">
       <div class="col-md-6">
-        <div><strong>Date:</strong> {{event?.date}}</div>
+        <div><strong>Date:</strong> {{event?.date | date:'dd/MM/yyyy'}}</div>
         <div><strong>Time:</strong> {{event?.time}}</div>
         <div><strong>Price:</strong> ${{event?.price}}</div>
       </div>
@@ -24,15 +24,20 @@
     
     <hr>
 
-    <div class="row">
+    <div class="row" style="margin-bottom: 10px">
       <div class="col-md-2">
         <h3 style="margin: 0">Sessions</h3>
       </div>
-
+      <div class="col-md-7">
+        <button class="btn btn-default" [class.active]="filters.all" (click)="filters.all = !filters.all">All</button>
+        <button class="btn btn-default" [class.active]="filters.beginner" (click)="filters.beginner = !filters.beginner">Beginner</button>
+        <button class="btn btn-default" [class.active]="filters.intermediate" (click)="filters.intermediate = !filters.intermediate">Intermediate</button>
+        <button class="btn btn-default" [class.active]="filters.advanced" (click)="filters.advanced = !filters.advanced">Advanced</button>
+      </div>
       <div class="col-md-2">
         <a (click)="addSession()">Add session</a>
       </div>
     </div>
-    <session-list *ngIf="!addMode" [sessions]="event?.sessions"></session-list>
+    <session-list *ngIf="!addMode" [sessions]="filterSessions(event?.sessions, filters)"></session-list>
     <create-session *ngIf="addMode" (saveNewSession)="saveNewSession($event)" (cancelNewSession)="cancelNewSession()"></create-session>
   </div>

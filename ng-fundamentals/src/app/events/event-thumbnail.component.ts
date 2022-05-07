@@ -15,8 +15,8 @@ import { IEvent } from "./shared";
                 <span *ngSwitchDefault>(Normal Start)</span>
             </div>
         </div>
-        <div><strong>Date: </strong>{{event?.date}}</div>
-        <div class="pad-left"><strong>Price: </strong>\${{event?.price}}</div>
+        <div><strong>Date: </strong>{{event?.date | date:'dd/MM/yyyy'}}</div>
+        <div class="pad-left"><strong>Price: </strong>{{event?.price | currency:'USD'}}</div>
         <div *ngIf="event?.location">
             <strong>Location: </strong>
             {{event?.location?.address}},&nbsp;{{event?.location?.city}},&nbsp;{{event?.location?.country}}
@@ -42,18 +42,18 @@ import { IEvent } from "./shared";
 })
 
 export class EventThumbnailComponent {
-    @Input() event:IEvent;
+    @Input() event: IEvent;
     @Output() eventClick = new EventEmitter();
 
     handleClick() {
-        this.eventClick.emit({name: this.event.name});
+        this.eventClick.emit({ name: this.event.name });
     }
 
     logTitle() {
-        console.log(`The ${this.event.name} course was logged.`); 
+        console.log(`The ${this.event.name} course was logged.`);
     }
 
-    earlyTimeStyle() : any {
+    earlyTimeStyle(): any {
         let earlyStart = (this.event?.time === '8:00 am')
         return {
             green: earlyStart,

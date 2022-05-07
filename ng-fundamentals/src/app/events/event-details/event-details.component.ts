@@ -16,6 +16,12 @@ import { IEvent, ISession } from "../shared";
 export class EventDetailsComponent implements OnInit {
     event: IEvent;
     addMode: boolean;
+    filters = {
+        all: true,
+        beginner: false,
+        intermediate: false,
+        advanced: false
+    }
 
     constructor (
         private eventService:EventService, 
@@ -42,5 +48,21 @@ export class EventDetailsComponent implements OnInit {
 
     cancelNewSession() {
         this.addMode = false;
+    }
+
+    filterSessions(sessions: ISession[], filters: any): ISession[] {
+        if (sessions) {
+            if (filters.all) {
+                return sessions;
+            }
+            console.log('values', {
+                filters,
+                sessions
+            });
+            
+            return sessions.filter(s => filters[s.level.toLowerCase()]);
+        }
+        console.log('when nothing is filtered');
+        
     }
 }
