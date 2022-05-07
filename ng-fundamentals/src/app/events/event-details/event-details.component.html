@@ -29,15 +29,29 @@
         <h3 style="margin: 0">Sessions</h3>
       </div>
       <div class="col-md-7">
-        <button class="btn btn-default" [class.active]="filters.all" (click)="filters.all = !filters.all">All</button>
-        <button class="btn btn-default" [class.active]="filters.beginner" (click)="filters.beginner = !filters.beginner">Beginner</button>
-        <button class="btn btn-default" [class.active]="filters.intermediate" (click)="filters.intermediate = !filters.intermediate">Intermediate</button>
-        <button class="btn btn-default" [class.active]="filters.advanced" (click)="filters.advanced = !filters.advanced">Advanced</button>
+        <div class="btn-group sm">
+          <!-- <button **ngFor="let sortType of sortTypes" class="btn btn-default" [class.active]="sortTypes.name.active">{{ sortType[].title }}</button> -->
+          <label for="selectedSort">Sort by:</label>
+          <select [(ngModel)]="selectedSort" name="selectedSort">
+            <option *ngFor="let sortType of sortTypes" [value]="sortType.name">{{sortType.description}}</option>
+          </select>
+          <select [(ngModel)]="sortDesc" name="sortDesc">
+            <option value="">Ascending</option>
+            <option value="true">Descending</option>
+          </select>
+        </div>
+        <div class="btn btn-group-sm">
+          <button class="btn btn-default" [class.active]="filters.all" (click)="filters.all = !filters.all">All</button>
+          <button class="btn btn-default" [class.active]="filters.beginner" (click)="filters.beginner = !filters.beginner">Beginner</button>
+          <button class="btn btn-default" [class.active]="filters.intermediate" (click)="filters.intermediate = !filters.intermediate">Intermediate</button>
+          <button class="btn btn-default" [class.active]="filters.advanced" (click)="filters.advanced = !filters.advanced">Advanced</button>
+        </div>
+        
       </div>
       <div class="col-md-2">
         <a (click)="addSession()">Add session</a>
       </div>
     </div>
-    <session-list *ngIf="!addMode" [sessions]="filterSessions(event?.sessions, filters)"></session-list>
+    <session-list *ngIf="!addMode" [sessions]="filterSessions(event?.sessions, filters, selectedSort, sortDesc)"></session-list>
     <create-session *ngIf="addMode" (saveNewSession)="saveNewSession($event)" (cancelNewSession)="cancelNewSession()"></create-session>
   </div>
