@@ -1,57 +1,73 @@
 <div>
-    <img class="event-image" [src]="event?.imageUrl" [alt]="event?.name">
-  
-    <div class="row">
-      <div class="col-md-11">
-        <h2>{{event?.name}} </h2>
-      </div>
-    </div>
-  
-    <div class="row">
-      <div class="col-md-6">
-        <div><strong>Date:</strong> {{event?.date | date:'dd/MM/yyyy'}}</div>
-        <div><strong>Time:</strong> {{event?.time}}</div>
-        <div><strong>Price:</strong> ${{event?.price}}</div>
-      </div>
-      <div class="col-md-6">
-        <address>
-          <strong>Address:</strong><br />
-          {{event?.location?.address}}<br />
-          {{event?.location?.city}}, {{event?.location?.country}}
-        </address>
-      </div>
-    </div>
-    
-    <hr>
+  <img class="event-image" [src]="event?.imageUrl" [alt]="event?.name">
 
-    <div class="row" style="margin-bottom: 10px">
-      <div class="col-md-2">
-        <h3 style="margin: 0">Sessions</h3>
-      </div>
-      <div class="col-md-7">
-        <div class="btn-group sm">
-          <!-- <button **ngFor="let sortType of sortTypes" class="btn btn-default" [class.active]="sortTypes.name.active">{{ sortType[].title }}</button> -->
-          <label for="selectedSort">Sort by:</label>
-          <select [(ngModel)]="selectedSort" name="selectedSort">
-            <option *ngFor="let sortType of sortTypes" [value]="sortType.name">{{sortType.description}}</option>
-          </select>
-          <select [(ngModel)]="sortDesc" name="sortDesc">
-            <option value="">Ascending</option>
-            <option value="true">Descending</option>
-          </select>
+  <div class="row">
+    <div class="col-md-11">
+      <h2>{{event?.name}} </h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div><strong>Date:</strong> {{event?.date | date:'dd/MM/yyyy'}}</div>
+      <div><strong>Time:</strong> {{event?.time}}</div>
+      <div><strong>Price:</strong> ${{event?.price}}</div>
+    </div>
+    <div class="col-md-6">
+      <address>
+        <strong>Address:</strong><br />
+        {{event?.location?.address}}<br />
+        {{event?.location?.city}}, {{event?.location?.country}}
+      </address>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row" style="margin-bottom: 10px">
+    <div class="col-md-2">
+      <h3 style="margin: 0">Sessions</h3>
+    </div>
+    <div class="col-md-2" style="float: right; text-align: right;">
+      <a (click)="addSession()">Add session</a>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 20px; margin-bottom: 10px">
+    <div class="col-md-6">
+      <div class="">
+        <!-- <button **ngFor="let sortType of sortTypes" class="btn btn-default" [class.active]="sortTypes.name.active">{{ sortType[].title }}</button> -->
+        <div class="row">
+          <div class="col-md-4">
+            <label for="selectedSort" style="margin-right: 10px;">Sort by:</label>
+          </div>
         </div>
-        <div class="btn btn-group-sm">
-          <button class="btn btn-default" [class.active]="filters.all" (click)="filters.all = !filters.all">All</button>
-          <button class="btn btn-default" [class.active]="filters.beginner" (click)="filters.beginner = !filters.beginner">Beginner</button>
-          <button class="btn btn-default" [class.active]="filters.intermediate" (click)="filters.intermediate = !filters.intermediate">Intermediate</button>
-          <button class="btn btn-default" [class.active]="filters.advanced" (click)="filters.advanced = !filters.advanced">Advanced</button>
+        <div class="row">
+          <div class="col-md-12">
+            <select [(ngModel)]="selectedSort" name="selectedSort">
+              <option *ngFor="let sortType of sortTypes" [value]="sortType.name">{{sortType.description}}</option>
+            </select>
+            <select [(ngModel)]="sortDesc" name="sortDesc">
+              <option value="">Ascending</option>
+              <option value="true">Descending</option>
+            </select>
+          </div>
         </div>
-        
-      </div>
-      <div class="col-md-2">
-        <a (click)="addSession()">Add session</a>
       </div>
     </div>
-    <session-list *ngIf="!addMode" [sessions]="filterSessions(event?.sessions, filters, selectedSort, sortDesc)"></session-list>
-    <create-session *ngIf="addMode" (saveNewSession)="saveNewSession($event)" (cancelNewSession)="cancelNewSession()"></create-session>
+    <div class="col-md-6" style="display:flex; justify-content: end; align-items: center;">
+      <div style="align-self: center; margin-top: 10px">
+        <button class="btn btn-default" [class.active]="filters.all" (click)="filters.all = !filters.all">All</button>
+        <button class="btn btn-default" [class.active]="filters.beginner"
+          (click)="filters.beginner = !filters.beginner">Beginner</button>
+        <button class="btn btn-default" [class.active]="filters.intermediate"
+          (click)="filters.intermediate = !filters.intermediate">Intermediate</button>
+        <button class="btn btn-default" [class.active]="filters.advanced"  
+          (click)="filters.advanced = !filters.advanced">Advanced</button>
+      </div>
+    </div>
   </div>
+  <session-list *ngIf="!addMode" [sessions]="filterSessions(event?.sessions, filters, selectedSort, sortDesc)">
+  </session-list>
+  <create-session *ngIf="addMode" (saveNewSession)="saveNewSession($event)" (cancelNewSession)="cancelNewSession()">
+  </create-session>
+</div>
