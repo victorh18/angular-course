@@ -80,7 +80,6 @@ export class EventDetailsComponent implements OnInit {
         for (let index = 0; index < sortTypes.length; index++) {
             const sortType = sortTypes[index];
             if (sortType.name === selectedSort) {
-                console.log('eeh?', sortDesc);
                 return sortType.sortFunction;
             }
         }
