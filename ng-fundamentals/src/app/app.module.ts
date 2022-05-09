@@ -11,7 +11,9 @@ import {
   EventListResolver,
   CreateSessionComponent,
   SessionListComponent,
-  DurationPipe
+  DurationPipe,
+  TOASTR_TOKEN,
+  Toastr
 } from './events/index';
 
 import { CollapsibleWellComponent } from './common/index';
@@ -28,6 +30,7 @@ import { Error404Component } from './errors/404.component';
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+let toastr: Toastr = window['toastr']
 
 @NgModule({
   declarations: [
@@ -54,7 +57,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     EventRouteActivator,
     { provide: "canDeactivateCreateComponent", useValue: checkDirtyState},
     EventListResolver,
-    AuthService
+    AuthService,
+    { provide: TOASTR_TOKEN, useValue: toastr}
   ],
   bootstrap: [EventsAppComponent]
 })
