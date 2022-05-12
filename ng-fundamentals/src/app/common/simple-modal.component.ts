@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
     selector: 'simple-modal',
     template: `
-    <div id="simple-modal" class="modal fade" tabindex="-1">
+    <div id="{{modalId}}" class="modal fade" tabindex="-1">
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header"> <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
@@ -21,7 +21,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 
 export class SimpleModalComponent implements OnInit {
-    @Input() title: string
+    @Input() title: string;
+    @Input() modalId: string;
+
     constructor() { }
 
     ngOnInit() { }
