@@ -1,30 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { JQ_TOKEN } from './jquery.service';
 
 @Component({
     selector: 'simple-modal',
     template: `
-    <div id="{{modalId}}" class="modal fade" tabindex="-1">
+    <div id="{{modalId}}" class="modal fade" tabindex="-1" #modalContent>
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header"> <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
             <h4 class="modal-title">{{title}}</h4>
             </div>
-            <div class="modal.body">
-            <ng-content></ng-content>
+            <div class="modal-body" (click)="closeModal()">
+                <ng-content></ng-content>
             </div>
         </div>
     </div>
     `,
     styles: [`
-        .modal-body { height: 250px; overflow-y: scroll; }
+        .modal-body { height: 450px; overflow-y: scroll; }
     `]
 })
 
 export class SimpleModalComponent implements OnInit {
     @Input() title: string;
     @Input() modalId: string;
+    @ViewChild("modalContent") modalElement: ElementRef;
 
-    constructor() { }
+    constructor(@Inject(JQ_TOKEN) private $: any) { }
 
     ngOnInit() { }
+
+    closeModal() {
+        this.$(this.modalElement.nativeElement).modal('hide')
+    }
 }
