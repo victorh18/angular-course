@@ -1,5 +1,8 @@
 <div class="row" *ngFor="let session of sessions">
-    <div class="col-md-12">
+    <div class="col-md-1">
+        <upvote [count]="session.voters.length" [voted]="userHasVoted(session)" (vote)="toggleVote(session)"></upvote>
+    </div>
+    <div class="col-md-11">
         <div class="well">
             <collapsible-well>
                 <div well-title>
