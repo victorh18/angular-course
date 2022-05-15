@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, of, Subject } from 'rxjs';
 import { EventEmitter } from "@angular/core";
 import { IEvent } from "./event.model";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError } from "rxjs/operators";
 
 @Injectable()
@@ -16,24 +16,16 @@ export class EventService {
         this.EVENTS[index] = event;
     }
     saveEvent(event: IEvent) {
-        event.id = Math.max(...this.EVENTS.map(e => e.id)) + 1;
-        event.sessions = [];
-        this.EVENTS.push(event);
+      let options = new HttpHeaders({'Content-Type': 'application/json'});
+      return this.http.post<IEvent>('/api/events', event, { headers: options });
     }
 
     getEvents(): Observable<IEvent[]> {
         return this.http.get<IEvent[]>('/api/events').pipe(catchError(this.handleError<IEvent[]>('getEvents', [])));
     };
 
-    private handleError<T>(operation = 'operation', result?: T) {
-      return (error: any): Observable<T> => {
-        console.error(`an error with ${operation} has occurred: `, error);
-        return of(result as T);
-      }
-    }
-
-    getEvent(id:number): IEvent {
-        return this.EVENTS.find(e => e.id === id);
+    getEvent(id:number): Observable<IEvent> {
+        return this.http.get<IEvent>(`/api/events/${id}`).pipe(catchError(this.handleError<IEvent>('getEvent', null)))
     };
 
     searchSessions(searchTerm: string): Observable<any> {
@@ -53,6 +45,13 @@ export class EventService {
 
       return event;
 
+    }
+
+    private handleError<T>(operation = 'operation', result?: T) {
+      return (error: any): Observable<T> => {
+        console.error(`an error with ${operation} has occurred: `, error);
+        return of(result as T);
+      }
     }
 
     EVENTS: IEvent[] = [

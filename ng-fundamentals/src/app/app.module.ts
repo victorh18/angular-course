@@ -35,6 +35,7 @@ import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JQ_TOKEN } from './common/jquery.service';
 import { SimpleModalComponent } from './common/simple-modal.component';
+import { EventResolver } from './events/event.resolver';
 
 let toastr: Toastr = window['toastr']
 let jQuery = window["$"];
@@ -70,6 +71,7 @@ let jQuery = window["$"];
     VoteService,
     EventListResolver,
     AuthService,
+    EventResolver,
     { provide: "canDeactivateCreateComponent", useValue: checkDirtyState},
     { provide: TOASTR_TOKEN, useValue: toastr },
     { provide: JQ_TOKEN, useValue: jQuery }
