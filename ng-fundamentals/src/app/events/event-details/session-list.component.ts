@@ -15,11 +15,15 @@ export class SessionListComponent implements OnInit {
 
     ngOnInit() { }
     
-    toggleVote(session: ISession) {
+    toggleVote(session: ISession): void {
         this.voteService.toggleVote(session, this.authService.currentUser.userName);
     }
 
-    userHasVoted(session: ISession) {
+    userHasVoted(session: ISession): boolean {
         return this.voteService.userHasVoted(session, this.authService.currentUser.userName);
+    }
+
+    userIsAuthenticated(): boolean {
+        return this.authService.isAuthenticated();
     }
 }

@@ -15,7 +15,8 @@ import {
   TOASTR_TOKEN,
   Toastr,
   UpvoteComponent,
-  VoteService
+  VoteService,
+  LocationValidator
 } from './events/index';
 
 import { CollapsibleWellComponent, ModalTriggerDirective } from './common/index';
@@ -52,7 +53,8 @@ let jQuery = window["$"];
     DurationPipe,
     SimpleModalComponent,
     ModalTriggerDirective,
-    UpvoteComponent
+    UpvoteComponent,
+    LocationValidator
   ],
   imports: [
     BrowserModule,
