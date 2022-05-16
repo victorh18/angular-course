@@ -10,13 +10,14 @@ import { VoteService } from '../shared/vote.service';
 
 export class SessionListComponent implements OnInit {
     @Input() sessions: ISession[];
+    @Input() eventId: number;
 
     constructor(private authService: AuthService, private voteService: VoteService) { }
 
     ngOnInit() { }
     
     toggleVote(session: ISession): void {
-        this.voteService.toggleVote(session, this.authService.currentUser.userName);
+        this.voteService.toggleVote(this.eventId, session, this.authService.currentUser.userName);
     }
 
     userHasVoted(session: ISession): boolean {

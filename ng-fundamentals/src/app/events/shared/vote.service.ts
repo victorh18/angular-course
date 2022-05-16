@@ -1,20 +1,23 @@
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
+import { Session } from "protractor";
 import { ISession } from "./event.model";
 import { Toastr, TOASTR_TOKEN } from "./toastr.service";
 
 @Injectable()
 export class VoteService {
     constructor(
-        @Inject(TOASTR_TOKEN) private toastrService: Toastr
+        @Inject(TOASTR_TOKEN) private toastrService: Toastr,
+        private http: HttpClient
     ) {
 
     }
 
-    toggleVote(session: ISession, userName: string) {
+    toggleVote(eventId: number, session: ISession, userName: string) {
         if (this.userHasVoted(session, userName)) {
-            this.deleteVoter(session, userName);
+            this.deleteVoter(eventId, session, userName);
         } else {
-            this.addVoter(session, userName);
+            this.addVoter(eventId, session, userName);
         }
     }
 
@@ -22,14 +25,26 @@ export class VoteService {
         return session.voters.includes(userName);
     }
 
-    addVoter(session: ISession, userName: string) {
+    addVoter(eventId: number, session: ISession, userName: string) {
         session.voters.push(userName);
-        this.toastrService.success(`You have voted for the "${session.name}" session!`);
+
+        const url = `/api/events/${eventId}/sessions/${session.id}/voters/${userName}`
+        const options = { headers: new HttpHeaders({'Content-Type': 'application/json'})}
+
+        return this.http.post(url, {}, options).subscribe(e => 
+            this.toastrService.success(`You have voted for the "${session.name}" session!`));
+
     }
 
-    deleteVoter(session: ISession, userName: string) {
+    deleteVoter(eventId: number, session: ISession, userName: string) {
         let newVoters = session.voters.filter(v => v !== userName);
         session.voters = newVoters;
-        this.toastrService.success(`You have removed your vote for the "${session.name}" session!`);
+
+        const url = `/api/events/${eventId}/sessions/${session.id}/voters/${userName}`
+        const options = { headers: new HttpHeaders({'Content-Type': 'application/json'})}
+
+        return this.http.delete(url, options).subscribe(e => 
+            this.toastrService.success(`You have removed your vote for the "${session.name}" session!`));
+
     }
 }
