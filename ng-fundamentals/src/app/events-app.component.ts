@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { tap } from 'rxjs/operators';
+import { AuthService } from './user/auth.service';
 
 @Component({
   selector: 'events-app',
@@ -7,6 +10,11 @@ import { Component } from '@angular/core';
     <router-outlet></router-outlet>
   `
 })
-export class EventsAppComponent {
+export class EventsAppComponent implements OnInit {
   title = 'App for tech events';
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {
+      this.authService.checkAuthenticationStatus();
+  }
 }

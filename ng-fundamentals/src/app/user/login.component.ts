@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, Inject } from "@angular/core";
 import { Router } from "@angular/router";
+import { Toastr, TOASTR_TOKEN } from "../events";
 import { AuthService } from "./auth.service";
 
 @Component({
@@ -13,14 +14,23 @@ export class LoginComponent {
     password
     mouseOnLoginButton
 
-    constructor(private authService: AuthService, private router:Router) {
+    constructor(
+        private authService: AuthService, 
+        private router:Router,
+        @Inject(TOASTR_TOKEN) private toastrService: Toastr 
+    ) {
 
     }
 
     login(formData) {
-        this.authService.login(formData.userName, formData.password);
-        this.router.navigate(["events"]);
-        
+        this.authService.login(formData.userName, formData.password).subscribe(v => {
+            if (!v) {
+                this.toastrService.error('Invalid credentials, please try again.', "Login Error");
+                return
+            }
+
+            this.router.navigate(["events"]);
+        });
     }
 
     cancel() {

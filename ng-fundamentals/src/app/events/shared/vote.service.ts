@@ -23,6 +23,7 @@ export class VoteService {
 
     userHasVoted(session: ISession, userName: string) {
         return session.voters.includes(userName);
+        
     }
 
     addVoter(eventId: number, session: ISession, userName: string) {
