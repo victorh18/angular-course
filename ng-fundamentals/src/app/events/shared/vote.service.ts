@@ -44,7 +44,7 @@ export class VoteService {
         const url = `/api/events/${eventId}/sessions/${session.id}/voters/${userName}`
         const options = { headers: new HttpHeaders({'Content-Type': 'application/json'})}
 
-        return this.http.delete(url, options).subscribe(e => 
+        return this.http.delete(url).subscribe(e => 
             this.toastrService.success(`You have removed your vote for the "${session.name}" session!`));
 
     }
