@@ -61,8 +61,6 @@ describe("VoteService", () => {
         voteService.addVoter(eventId, <ISession>session, userName);
 
         expect(mockToastr.success).toHaveBeenCalledWith(successMessage);
-    })
-
-
+    });
 
 }) 
