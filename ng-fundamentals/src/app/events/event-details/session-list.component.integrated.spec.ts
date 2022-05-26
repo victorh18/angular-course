@@ -1,5 +1,6 @@
-import { DebugElement } from "@angular/core"
+import { DebugElement, NO_ERRORS_SCHEMA } from "@angular/core"
 import { ComponentFixture, TestBed } from "@angular/core/testing"
+import { By } from "@angular/platform-browser";
 import { AuthService } from "src/app/user/auth.service";
 import { DurationPipe, VoteService } from "../shared";
 import { SessionListComponent } from "./session-list.component"
@@ -30,6 +31,9 @@ describe("SessionListComponent", () => {
             providers: [
                 { provide: AuthService, useValue: mockAuthService },
                 { provide: VoteService, useValue: mockVoteService }
+            ],
+            schemas: [
+                NO_ERRORS_SCHEMA
             ]
         })
 
@@ -63,7 +67,7 @@ describe("SessionListComponent", () => {
             fixture.detectChanges();
             
             expect(element.querySelector("[well-title]").textContent).toContain(session.name);
-
+            expect(debugEl.query(By.css("[well-title]")).nativeElement.textContent).toContain(session.name);
         })
     })
 })
