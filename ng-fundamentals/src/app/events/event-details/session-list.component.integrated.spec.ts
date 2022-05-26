@@ -1,7 +1,7 @@
 import { DebugElement } from "@angular/core"
 import { ComponentFixture, TestBed } from "@angular/core/testing"
 import { AuthService } from "src/app/user/auth.service";
-import { VoteService } from "../shared";
+import { DurationPipe, VoteService } from "../shared";
 import { SessionListComponent } from "./session-list.component"
 
 describe("SessionListComponent", () => {
@@ -13,9 +13,19 @@ describe("SessionListComponent", () => {
         debugEl: DebugElement;
 
     beforeEach(() => {
+        mockAuthService = { 
+            isAuthenticated: () => true, 
+            currentUser: { firstName: 'John', lastName: 'Papa'} 
+        };
+
+        mockVoteService = { 
+            userHasVoted: () => true
+        }
+
         TestBed.configureTestingModule({
             declarations: [
-                SessionListComponent
+                SessionListComponent,
+                DurationPipe
             ],
             providers: [
                 { provide: AuthService, useValue: mockAuthService },
@@ -24,11 +34,36 @@ describe("SessionListComponent", () => {
         })
 
         fixture = TestBed.createComponent(SessionListComponent);
+        component = fixture.componentInstance;
         element = fixture.nativeElement;
-        debugEl = fixture.debugElement
+        debugEl = fixture.debugElement;
     })
     
     describe("initial display", () => {
+        it('should have a correct title', () => {
+            let session = {
+                id: 1,
+                name: "Using Angular 4 Pipes",
+                presenter: "Peter Bacon Darwin",
+                duration: 1,
+                level: "Intermediate",
+                abstract: `Learn all about the new pipes in Angular 4, both 
+                how to write them, and how to get the new AI CLI to write 
+                them for you. Given by the famous PBD, president of Angular 
+                University (formerly Oxford University)`,
+                voters: ['bradgreen', 'igorminar', 'martinfowler']
+            }
 
+            let sessions = [];
+            sessions.push(session);
+
+            component.sessions = sessions;
+            component.eventId = 1;
+
+            fixture.detectChanges();
+            
+            expect(element.querySelector("[well-title]").textContent).toContain(session.name);
+
+        })
     })
 })
