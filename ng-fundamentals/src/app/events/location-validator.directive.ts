@@ -7,12 +7,12 @@ import { AbstractControl, FormGroup, NG_VALIDATORS, ValidationErrors, Validator 
 })
 export class LocationValidator implements Validator {
     validate(formGroup: FormGroup): ValidationErrors {
-        let address = formGroup.controls['address'];
-        let city = formGroup.controls['city'];
-        let country = formGroup.controls['country'];
-        let onlineUrl = (<FormGroup>formGroup.root).controls['onlineUrl'];
+        const address = formGroup.controls['address'];
+        const city = formGroup.controls['city'];
+        const country = formGroup.controls['country'];
+        const onlineUrl = (<FormGroup>formGroup.root).controls['onlineUrl'];
 
-        let isPhysicalLocationComplete = (address.value && city.value && country.value);
+        const isPhysicalLocationComplete = (address.value && city.value && country.value);
 
         if (isPhysicalLocationComplete || onlineUrl.value)
             return null;

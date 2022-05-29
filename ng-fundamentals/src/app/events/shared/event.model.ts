@@ -25,12 +25,12 @@ export interface ISession {
 }
 
 export class Session implements ISession {
-    id: number = 0
-    name: string = ""
-    presenter: string = ""
-    duration: number = 0
-    level: string = ""
-    abstract: string = ""
+    id = 0
+    name = ""
+    presenter = ""
+    duration = 0
+    level = ""
+    abstract = ""
     voters: string[] = [""]
 
 }

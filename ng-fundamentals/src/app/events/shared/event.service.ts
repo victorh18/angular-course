@@ -12,21 +12,21 @@ export class EventService {
   }
 
     updateEvent(event: IEvent) {
-        let index = this.EVENTS.findIndex(e => e.id === event.id);
+        const index = this.EVENTS.findIndex(e => e.id === event.id);
         this.EVENTS[index] = event;
     }
     saveEvent(event: IEvent) {
-      let options = new HttpHeaders({'Content-Type': 'application/json'});
+      const options = new HttpHeaders({'Content-Type': 'application/json'});
       return this.http.post<IEvent>('/api/events', event, { headers: options });
     }
 
     getEvents(): Observable<IEvent[]> {
         return this.http.get<IEvent[]>('/api/events').pipe(catchError(this.handleError<IEvent[]>('getEvents', [])));
-    };
+    }
 
     getEvent(id:number): Observable<IEvent> {
         return this.http.get<IEvent>(`/api/events/${id}`).pipe(catchError(this.handleError<IEvent>('getEvent', null)))
-    };
+    }
 
     searchSessions(searchTerm: string): Observable<any> {
       return this.http.get<ISession[]>(`/api/sessions/search?search=${searchTerm}`).pipe(catchError(this.handleError<ISession[]>('searchSessions')));

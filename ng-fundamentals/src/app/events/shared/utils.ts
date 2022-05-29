@@ -1,5 +1,5 @@
 function getPropertyAsString<T extends object>(obj: T, selector: (x: Record<keyof T, keyof T>) => keyof T) {
-    let propertiesObject = {} as Record<keyof T, keyof T>;
+    const propertiesObject = {} as Record<keyof T, keyof T>;
 
     const keyList = Object.keys(obj).reduce((result, currentKey) => {
         const key = currentKey as keyof T;

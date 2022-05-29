@@ -19,7 +19,7 @@ import { SESSION_SORT_TYPES } from "../shared/sort-types";
 export class EventDetailsComponent implements OnInit {
     sortTypes = SESSION_SORT_TYPES;
     selectedSort: string = SESSION_SORT_TYPES[0].name;
-    sortDesc: boolean = false;
+    sortDesc = false;
 
     event: IEvent;
     addMode: boolean;
@@ -68,7 +68,7 @@ export class EventDetailsComponent implements OnInit {
                 filteredSessions = sessions.slice(0).filter(s => filters[s.level.toLowerCase()])
             }
         
-            let sortFunction = this.getSortFunction(this.sortTypes, selectedSort, sortDesc)(sortDesc)
+            const sortFunction = this.getSortFunction(this.sortTypes, selectedSort, sortDesc)(sortDesc)
 
             filteredSessions = filteredSessions.sort(sortFunction);
             

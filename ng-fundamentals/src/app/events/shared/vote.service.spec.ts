@@ -16,7 +16,7 @@ describe("VoteService", () => {
     })
 
     it('should remove specific user from the list of voters',  () => {
-        let session: unknown = { voters: ['Joe', 'John']};
+        const session: unknown = { voters: ['Joe', 'John']};
         mockHttp.delete.and.returnValue(of(false));
 
         voteService.deleteVoter(2, <ISession>session, "John");
@@ -26,9 +26,9 @@ describe("VoteService", () => {
     });
 
     it('should call http.delete with the proper URL', () => {
-        let session = { id:3, voters: ['Joe', 'John']};
-        let eventId = 2;
-        let userName = "John";
+        const session = { id:3, voters: ['Joe', 'John']};
+        const eventId = 2;
+        const userName = "John";
 
         mockHttp.delete.and.returnValue(of(false));
 
@@ -38,9 +38,9 @@ describe("VoteService", () => {
     });
 
     it('should call http.post with the proper parameters when adding a voter.', () => {
-        let session = { id:3, voters: ['Joe']};
-        let eventId = 2;
-        let userName = "John";
+        const session = { id:3, voters: ['Joe']};
+        const eventId = 2;
+        const userName = "John";
 
         mockHttp.post.and.returnValue(of(false));
 
@@ -50,13 +50,13 @@ describe("VoteService", () => {
     });
 
     it('should show a success notification if the voter was added.', () => {
-        let session = { name: "Test Session", id:3, voters: ['Joe']};
-        let eventId = 2;
-        let userName = "John";
+        const session = { name: "Test Session", id:3, voters: ['Joe']};
+        const eventId = 2;
+        const userName = "John";
 
         mockHttp.post.and.returnValue(of(true));
 
-        let successMessage = `You have voted for the "${session.name}" session!`
+        const successMessage = `You have voted for the "${session.name}" session!`
 
         voteService.addVoter(eventId, <ISession>session, userName);
 

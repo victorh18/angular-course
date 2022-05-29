@@ -15,7 +15,7 @@ import { EventService, IEvent } from "./shared";
 })
 export class CreateEventComponent implements OnInit {
     event: any
-    isDirty:boolean = false;
+    isDirty = false;
     constructor(private router:Router, private eventService: EventService) {
         
     }

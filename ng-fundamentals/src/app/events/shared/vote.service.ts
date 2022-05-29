@@ -38,7 +38,7 @@ export class VoteService {
     }
 
     deleteVoter(eventId: number, session: ISession, userName: string) {
-        let newVoters = session.voters.filter(v => v !== userName);
+        const newVoters = session.voters.filter(v => v !== userName);
         session.voters = newVoters;
 
         const url = `/api/events/${eventId}/sessions/${session.id}/voters/${userName}`

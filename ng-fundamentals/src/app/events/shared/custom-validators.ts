@@ -5,7 +5,7 @@ export function restrictWords(restrictedWords: string[]) {
         if (!restrictedWords) 
             return null;
         
-        let invalidWords = restrictedWords.filter(w => control.value.includes(w));
+        const invalidWords = restrictedWords.filter(w => control.value.includes(w));
         console.log(invalidWords);
         
         if (invalidWords?.length > 0) {

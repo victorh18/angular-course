@@ -50,7 +50,7 @@ export class CreateSessionComponent implements OnInit {
      }
      
      saveSession(data) {
-         let session: ISession = {
+         const session: ISession = {
             id: undefined,
             name: data.sessionName,
             duration: data.duration,

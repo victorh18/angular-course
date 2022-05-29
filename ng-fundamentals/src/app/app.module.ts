@@ -37,8 +37,8 @@ import { JQ_TOKEN } from './common/jquery.service';
 import { SimpleModalComponent } from './common/simple-modal.component';
 import { EventResolver } from './events/event.resolver';
 
-let toastr: Toastr = window['toastr']
-let jQuery = window["$"];
+const toastr: Toastr = window['toastr']
+const jQuery = window["$"];
 
 @NgModule({
   declarations: [

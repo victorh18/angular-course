@@ -45,7 +45,7 @@ describe("SessionListComponent", () => {
     
     describe("initial display", () => {
         it('should have a correct title', () => {
-            let session = {
+            const session = {
                 id: 1,
                 name: "Using Angular 4 Pipes",
                 presenter: "Peter Bacon Darwin",
@@ -58,7 +58,7 @@ describe("SessionListComponent", () => {
                 voters: ['bradgreen', 'igorminar', 'martinfowler']
             }
 
-            let sessions = [];
+            const sessions = [];
             sessions.push(session);
 
             component.sessions = sessions;

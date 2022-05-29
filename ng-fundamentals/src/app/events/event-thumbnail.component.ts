@@ -54,7 +54,7 @@ export class EventThumbnailComponent {
     }
 
     earlyTimeStyle(): any {
-        let earlyStart = (this.event?.time === '8:00 am')
+        const earlyStart = (this.event?.time === '8:00 am')
         return {
             green: earlyStart,
             bold: earlyStart
